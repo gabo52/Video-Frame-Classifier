@@ -1,11 +1,12 @@
 "use client";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UploadFile from "./_components/UploadFile";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import WatchFrames from "./_components/WatchFrames";
+import { useOnKeyPress } from "./hooks/useOnKeyPress";
 
 const CSV_URL = "http://localhost:3000/results.csv";
 
@@ -54,6 +55,12 @@ export default function Home() {
     aTag.click();
     aTag.remove();
   };
+
+  useOnKeyPress(() => handleCountChange(idx + 1), "ArrowRight");
+  useOnKeyPress(() => handleCountChange(idx - 1), "ArrowLeft");
+
+  useOnKeyPress(() => assignLabel("normal"), "a");
+  useOnKeyPress(() => assignLabel("abnormal"), "b");
 
   return (
     <>
