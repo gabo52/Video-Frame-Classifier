@@ -1,0 +1,16 @@
+https://www.geeksforgeeks.org/how-to-horizontally-and-vertically-center-an-element-in-tailwind-css/
+https://github.com/john-smilga/react-projects/tree/master
+https://github.com/john-smilga/react-projects/blob/master/01-birthday-reminder/final/src/index.css
+https://stackoverflow.com/questions/36683770/how-to-get-the-value-of-an-input-field-using-reactjs
+https://www.youtube.com/watch?v=7LNl2JlZKHA
+https://www.youtube.com/watch?v=4UZrsTqkcW4&t=30396s
+https://www.youtube.com/watch?v=a_7Z7C_JCyo
+https://www.youtube.com/watch?v=ctQMqqEo4G8
+https://stackoverflow.com/questions/41139763/how-to-declare-a-fixed-length-array-in-typescript
+https://www.youtube.com/watch?v=IPEqb_AJbAQ
+
+
+https://www.geeksforgeeks.org/use-jsonify-instead-of-json-dumps-in-flask/
+https://www.youtube.com/watch?v=n4orudncbTs
+https://www.geeksforgeeks.org/delete-a-directory-or-file-using-python/
+https://stackoverflow.com/questions/185936/how-to-delete-the-contents-of-a-folder
