@@ -4,7 +4,6 @@ import os
 import shutil
 import cv2
 import pandas as pd
-import numpy as np
 
 app = Flask(__name__)
 CORS(app, origins='*')

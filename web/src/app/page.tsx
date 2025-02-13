@@ -34,8 +34,6 @@ export default function Home() {
   };
 
   const loadVideo = async (videoPath: string) => {
-    setIsVideoSelected(true);
-    setVideoPath(videoPath);
     // Aca se llama la api en back y se procesan todos los frames del video guardandose en una carpeta
     // Luego se muestra la imagen que corresponde al indice de la variable count y con ello ya se muestran resultados
     console.log(`El video path es ${videoPath}`);
@@ -43,6 +41,16 @@ export default function Home() {
     const response = await axios.post("http://localhost:5000/api/video", {
       video_path: videoPath,
     });
+
+    if (response.data === 0) {
+      toast({
+        description: `Video file on ${videoPath} not found`,
+        variant: `destructive`,
+      });
+      return;
+    }
+    setIsVideoSelected(true);
+    setVideoPath(videoPath);
     await sleep(2000);
     setMaxLength(response.data);
     const newArray = new Array<string>(response.data);
@@ -63,7 +71,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="min-h-screen bg-blue-200 flex justify-center items-center font-mono">
+      <div className="min-h-screen bg-slate-200 flex justify-center items-center font-mono">
         {isVideoSelected ? (
           <WatchFrames
             idx={idx}
