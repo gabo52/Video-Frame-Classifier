@@ -48,10 +48,16 @@ function WatchFrames({
           </Button>
         </div>
         <div className="flex justify-center items-center my-4">
-          <Button className="mx-6" onClick={() => assignLabel("normal")}>
+          <Button
+            className="mx-6 bg-blue-600 shadow-xl hover:bg-blue-700"
+            onClick={() => assignLabel("normal")}
+          >
             Normal
           </Button>
-          <Button className="mx-6" onClick={() => assignLabel("abnormal")}>
+          <Button
+            className="mx-6 bg-orange-600 shadow-xl hover:bg-orange-700"
+            onClick={() => assignLabel("abnormal")}
+          >
             Abnormal
           </Button>
         </div>

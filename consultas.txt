@@ -10,7 +10,11 @@ https://stackoverflow.com/questions/41139763/how-to-declare-a-fixed-length-array
 https://www.youtube.com/watch?v=IPEqb_AJbAQ
 https://www.youtube.com/watch?v=D5SdvGMTEaU
 https://www.youtube.com/watch?v=Aq8PnD-gn1g
-
+https://www.geeksforgeeks.org/what-is-the-javascript-version-of-sleep-method/
+https://github.com/shadcn-ui/ui/issues/1718
+https://stackoverflow.com/questions/78986242/toast-notification-not-triggering-in-next-js-contact-form-despite-successful-rou
+https://coreui.io/blog/how-to-capitalize-the-first-letter-in-javascript/
+https://github.com/shadcn-ui/ui/issues/2157
 
 https://www.geeksforgeeks.org/use-jsonify-instead-of-json-dumps-in-flask/
 https://www.youtube.com/watch?v=n4orudncbTs

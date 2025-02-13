@@ -1,12 +1,11 @@
 "use client";
 import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import UploadFile from "./_components/UploadFile";
-import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import WatchFrames from "./_components/WatchFrames";
 import { useOnKeyPress } from "./hooks/useOnKeyPress";
+import { sleep } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 const CSV_URL = "http://localhost:3000/results.csv";
 
@@ -16,6 +15,7 @@ export default function Home() {
   const [maxLength, setMaxLength] = useState(0);
   const [videoPath, setVideoPath] = useState("");
   const [labels, setLabels] = useState<Array<string>>([]);
+  const { toast } = useToast();
 
   const handleCountChange = (newValue: number) => {
     if (newValue !== maxLength && newValue >= 0) {
@@ -27,6 +27,10 @@ export default function Home() {
     labels[idx] = label;
     setLabels(labels);
     console.log(labels);
+    toast({
+      description: `${label} label assigned`,
+      variant: `${label}_label`,
+    });
   };
 
   const loadVideo = async (videoPath: string) => {
@@ -39,6 +43,7 @@ export default function Home() {
     const response = await axios.post("http://localhost:5000/api/video", {
       video_path: videoPath,
     });
+    await sleep(2000);
     setMaxLength(response.data);
     const newArray = new Array<string>(response.data);
     setLabels(newArray);
@@ -59,8 +64,8 @@ export default function Home() {
   useOnKeyPress(() => handleCountChange(idx + 1), "ArrowRight");
   useOnKeyPress(() => handleCountChange(idx - 1), "ArrowLeft");
 
-  useOnKeyPress(() => assignLabel("normal"), "a");
-  useOnKeyPress(() => assignLabel("abnormal"), "b");
+  useOnKeyPress(() => assignLabel("normal"), "n");
+  useOnKeyPress(() => assignLabel("abnormal"), "a");
 
   return (
     <>

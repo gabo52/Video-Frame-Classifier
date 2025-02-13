@@ -43,7 +43,7 @@ def write_results():
     video_path = request.json['labels']
     
     labels_series = pd.DataFrame({"labels_classified":video_path})
-    labels_series["labels_classified"].fillna('Not assigned', inplace=True)
+    labels_series["labels_classified"] = labels_series["labels_classified"].fillna('Not assigned')
 
     results_path = os.path.join('..','web','public','results.csv')
     labels_series.to_csv(results_path,index=True, header=['Label assigned'])
