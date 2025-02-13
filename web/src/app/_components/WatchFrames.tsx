@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useOnKeyPress } from "../hooks/useOnKeyPress";
 
 function WatchFrames({
   idx,
@@ -14,6 +15,11 @@ function WatchFrames({
   assignLabel: (label: string) => void;
   downloadCSV: () => void;
 }) {
+  useOnKeyPress(() => handleCountChange(idx + 1), "ArrowRight");
+  useOnKeyPress(() => handleCountChange(idx - 1), "ArrowLeft");
+
+  useOnKeyPress(() => assignLabel("normal"), "n");
+  useOnKeyPress(() => assignLabel("abnormal"), "a");
   return (
     <>
       <div>

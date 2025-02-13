@@ -61,12 +61,6 @@ export default function Home() {
     aTag.remove();
   };
 
-  useOnKeyPress(() => handleCountChange(idx + 1), "ArrowRight");
-  useOnKeyPress(() => handleCountChange(idx - 1), "ArrowLeft");
-
-  useOnKeyPress(() => assignLabel("normal"), "n");
-  useOnKeyPress(() => assignLabel("abnormal"), "a");
-
   return (
     <>
       <div className="min-h-screen bg-blue-200 flex justify-center items-center font-mono">
