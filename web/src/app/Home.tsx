@@ -76,21 +76,24 @@ export default function Home() {
       );
   };
 
-  return loaded ? (
-    <div className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
-      <video ref={videoRef} controls></video>
-      <br />
-      <button
-        onClick={transcode}
-        className="bg-green-500 hover:bg-green-700 text-white py-3 px-6 rounded"
-      >
-        Transcode avi to mp4
-      </button>
-      <p ref={messageRef}></p>
-    </div>
-  ) : (
-    <div>
-      {/* <button
+  return (
+    <>
+      <div className="min-h-screen bg-slate-200 flex justify-center items-center font-mono">
+        {loaded ? (
+          <div className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+            <video ref={videoRef} controls></video>
+            <br />
+            <button
+              onClick={transcode}
+              className="bg-green-500 hover:bg-green-700 text-white py-3 px-6 rounded"
+            >
+              Transcode avi to mp4
+            </button>
+            <p ref={messageRef}></p>
+          </div>
+        ) : (
+          <div className="w-[70vw] m-[5rem 0]  max-w-[1170px] rounded-sm p-[1.5rem 2rem] border-red-500">
+            {/* <button
         className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex items-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
         onClick={load}
       >
@@ -111,21 +114,24 @@ export default function Home() {
           </span>
         )}
       </button> */}
-      <VideoFilePicker
-        handleChange={handleVideoChange}
-        showVideo={!!inputVideoFile}
-      >
-        <div className="bord_g_2 p_2">
-          <video
-            src={inputVideoFile ? URL : null}
-            autoPlay
-            controls
-            muted
-            onLoadedMetadata={handleLoadedData}
-            width="450"
-          ></video>
-        </div>
-      </VideoFilePicker>
-    </div>
+            <VideoFilePicker
+              handleChange={handleVideoChange}
+              showVideo={!!inputVideoFile}
+            >
+              <div className="bord_g_2 p_2">
+                <video
+                  src={inputVideoFile ? URL : null}
+                  autoPlay
+                  controls
+                  muted
+                  onLoadedMetadata={handleLoadedData}
+                  width="450"
+                ></video>
+              </div>
+            </VideoFilePicker>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
