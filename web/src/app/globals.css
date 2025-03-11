@@ -95,3 +95,21 @@ a {
     @apply bg-background text-foreground;
   }
 }
+
+input[type="file"] {
+  display: none;
+}
+
+.file_picker {
+  border: 3px dashed #666;
+  cursor: pointer;
+  display: block;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  height: 80%;
+  padding: 12rem 0;
+}
+#file_picker_small {
+  padding: 3rem 2rem;
+}
