@@ -1,11 +1,15 @@
 "use client";
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import UploadFile from "./_components/UploadFile";
 import WatchFrames from "./_components/WatchFrames";
-import { useOnKeyPress } from "./hooks/useOnKeyPress";
 import { sleep } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { MyComposition } from "@/remotion/Composition";
+import { Player } from "@remotion/player";
+import { MyVideo } from "./remotion/MyVideo";
+import { FadeIn } from "@/remotion/FaeIn";
+import { MyComp } from "@/remotion/MyComp";
 
 const CSV_URL = "http://localhost:3000/results.csv";
 
@@ -13,7 +17,6 @@ export default function Home() {
   const [idx, setIdx] = useState(0);
   const [isVideoSelected, setIsVideoSelected] = useState(false);
   const [maxLength, setMaxLength] = useState(0);
-  const [videoPath, setVideoPath] = useState("");
   const [labels, setLabels] = useState<Array<string>>([]);
   const { toast } = useToast();
 
@@ -80,8 +83,23 @@ export default function Home() {
             downloadCSV={downloadCSV}
           ></WatchFrames>
         ) : (
-          <div className="w-[70vw] m-[5rem 0] bg-blue-300 max-w-[1170px] rounded-sm p-[1.5rem 2rem] border-red-500 shadow-xl">
-            <UploadFile loadVideo={loadVideo}></UploadFile>
+          <div className="w-[70vw]  m-[5rem 0] bg-blue-300 max-w-[1470px] rounded-sm p-[1.5rem 2rem] border-red-500 shadow-xl">
+            <div>
+              <UploadFile loadVideo={loadVideo}></UploadFile>
+              <Player
+                component={MyComp}
+                inputProps={{ text: "World" }}
+                durationInFrames={120}
+                compositionWidth={1920}
+                compositionHeight={1080}
+                fps={30}
+                style={{
+                  width: 1280,
+                  height: 720,
+                }}
+                controls
+              />
+            </div>
           </div>
         )}
       </div>
