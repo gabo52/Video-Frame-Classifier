@@ -31,7 +31,6 @@ export default function RangeInput({
           {thumbNails.map((imgURL, id) => (
             <img src={imgURL} alt={`sample_video_thumbnail_${id}`} key={id} />
           ))}
-
           <div
             className="clip_box"
             style={{
@@ -46,11 +45,7 @@ export default function RangeInput({
               (rEnd / RANGE_MAX) * videoMeta.duration,
               false
             )}
-          >
-            <span className="clip_box_des"></span>
-            <span className="clip_box_des"></span>
-          </div>
-
+          ></div>
           <input
             className="range"
             type="range"
@@ -59,6 +54,7 @@ export default function RangeInput({
             onInput={handleUpdaterStart}
             value={rStart}
           />
+
           <input
             className="range"
             type="range"

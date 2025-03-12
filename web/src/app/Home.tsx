@@ -17,7 +17,6 @@ const FF = createFFmpeg({
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
-  const messageRef = useRef<HTMLParagraphElement | null>(null);
 
   const [rStart, setRstart] = useState(0);
   const [rEnd, setRend] = useState(10);
@@ -27,9 +26,7 @@ export default function Home() {
   const [URL, setURL] = useState([]);
 
   const [thumbNails, setThumbNails] = useState([]);
-  const [trimmedVideoFile, setTrimmedVideoFile] = useState(null);
   const [thumbnailIsProcessing, setThumbnailIsProcessing] = useState(false);
-  const [trimIsProcessing, setTrimIsProcessing] = useState(false);
 
   const handleVideoChange = async (e) => {
     const file = e.target.files[0];
@@ -67,8 +64,8 @@ export default function Home() {
         );
         const data = FF.FS("readFile", `img${i}.png`);
 
-        let blob = new Blob([data.buffer], { type: "image/png" });
-        let dataURI = await helpers.readFileAsBase64(blob);
+        const blob = new Blob([data.buffer], { type: "image/png" });
+        const dataURI = await helpers.readFileAsBase64(blob);
         FF.FS("unlink", `img${i}.png`);
         arrayOfImageURIs.push(dataURI);
       } catch (error) {
@@ -99,47 +96,6 @@ export default function Home() {
     return ({ target: { value } }) => {
       func(value);
     };
-  };
-
-  const handleTrim = async () => {
-    setTrimIsProcessing(true);
-
-    let startTime = ((rStart / 100) * videoMeta.duration).toFixed(2);
-    let offset = ((rEnd / 100) * videoMeta.duration - startTime).toFixed(2);
-    console.log(
-      startTime,
-      offset,
-      helpers.toTimeString(startTime),
-      helpers.toTimeString(offset)
-    );
-
-    try {
-      FF.FS("writeFile", inputVideoFile.name, await fetchFile(inputVideoFile));
-      // await FF.run('-ss', '00:00:13.000', '-i', inputVideoFile.name, '-t', '00:00:5.000', 'ping.mp4');
-      await FF.run(
-        "-ss",
-        helpers.toTimeString(startTime),
-        "-i",
-        inputVideoFile.name,
-        "-t",
-        helpers.toTimeString(offset),
-        "-c",
-        "copy",
-        "ping.mp4"
-      );
-
-      const data = FF.FS("readFile", "ping.mp4");
-      console.log(data);
-      const dataURL = await helpers.readFileAsBase64(
-        new Blob([data.buffer], { type: "video/mp4" })
-      );
-
-      setTrimmedVideoFile(dataURL);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setTrimIsProcessing(false);
-    }
   };
 
   return (
