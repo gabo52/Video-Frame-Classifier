@@ -1,5 +1,5 @@
 import React from "react";
-import * as helpers from "../utils/helpers";
+import * as helpers from "../../utils/helpers";
 
 export default function RangeInput({
   thumbNails,
@@ -8,10 +8,9 @@ export default function RangeInput({
   handleUpdaterStart,
   handleUpdaterEnd,
   loading,
-  control,
   videoMeta,
 }) {
-  let RANGE_MAX = 100;
+  const RANGE_MAX = 100;
 
   if (thumbNails.length === 0 && !loading) {
     return null;
@@ -70,8 +69,6 @@ export default function RangeInput({
           />
         </div>
       </div>
-
-      {control}
     </>
   );
 }
