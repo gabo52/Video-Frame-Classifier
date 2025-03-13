@@ -137,11 +137,10 @@ input[type="file"] {
 .clip_box::before,
 .clip_box::after {
   position: absolute;
-  top: 80%;
+  top: 50%;
   transform: translateY(104%);
-  background-color: #000;
-  color: #fff;
-  border-radius: 5px;
+  color: #000;
+  font-size: medium;
   padding: 0.7rem;
   font-size: 0.75rem;
   font-weight: 600;
@@ -183,8 +182,8 @@ input[type="file"] {
 
 .range_pack {
   position: relative;
-  margin-top: 4rem;
-  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
   display: flex;
   justify-content: center;
 }
@@ -205,10 +204,10 @@ input[type="file"] {
   display: flex;
   align-items: flex-start;
   position: relative;
-
   position: relative;
-  height: 6rem;
+  height: 5rem;
   /* overflow: hidden; */
+  max-width: 50rem;
   border-radius: 10px;
 }
 .image_box > img {

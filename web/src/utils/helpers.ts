@@ -1,7 +1,7 @@
 const toTimeString = (sec, showMilliSeconds = true) => {
   sec = parseFloat(sec);
   let hours = Math.floor(sec / 3600); // get hours
-  let minutes = Math.floor((sec - hours * 3600) / 60); // get minutes
+  let minutes = Math.floor(sec / 60); // get minutes
   let seconds = sec - hours * 3600 - minutes * 60; //  get seconds
   // add 0 if value < 10; Example: 2 => 02
   if (hours < 10) {
@@ -17,8 +17,6 @@ const toTimeString = (sec, showMilliSeconds = true) => {
 
   let millisec = String(seconds).match(maltissaRegex);
   return (
-    hours +
-    ":" +
     minutes +
     ":" +
     String(seconds).replace(maltissaRegex, "") +

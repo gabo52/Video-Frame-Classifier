@@ -1,16 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as helpers from "../../utils/helpers";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import ClipBox from "./ClipBox";
+import { RangeClip } from "../../../types";
 
 export default function RangeInput({
-  thumbNails,
-  rEnd,
-  rStart,
-  handleUpdaterStart,
-  handleUpdaterEnd,
+  labelName,
+  color,
   loading,
   videoMeta,
+  thumbNails,
+  handleRangeUpdateOnRangesLabeled,
+}: {
+  labelName: string;
+  color: string;
+  loading: boolean;
 }) {
-  const RANGE_MAX = 100;
+  const [rangesClipBox, setRangesClipsBox] = useState<RangeClip[]>([]);
+  const [idxBox, setIdxBox] = useState<string>("");
+
+  useEffect(() => {
+    handleRangeUpdateOnRangesLabeled(labelName, rangesClipBox);
+  }, [rangesClipBox]);
+
+  const handleUpdateRangeClip = (rangeClip) => {
+    setRangesClipsBox(
+      rangesClipBox.map((range) => {
+        if (rangeClip.id === range.id) {
+          return rangeClip;
+        }
+        return range;
+      })
+    );
+  };
+
+  const addRangeClipBox = () => {
+    const newRange: RangeClip = {
+      rStart: 0,
+      rEnd: 10,
+      id: new Date().getTime().toString(),
+    };
+    setRangesClipsBox([...rangesClipBox, newRange]);
+    setIdxBox(newRange.id);
+    //addRangeToRangesLabeled({ range: newRange, id: `${labelName}_${idxBox}` });
+  };
+
+  const updateClipIdx = (id: number) => {
+    setIdxBox(id);
+  };
+
+  const removeClipBox = () => {
+    setRangesClipsBox(rangesClipBox.filter((range) => range.id != idxBox));
+    //removeRangeFromRangesLabeled(`${labelName}_${idxBox}`);
+  };
 
   if (thumbNails.length === 0 && !loading) {
     return null;
@@ -27,42 +71,43 @@ export default function RangeInput({
   return (
     <>
       <div className="range_pack">
+        <div className="flex items-center justify-center mx-10  rounded-md">
+          <Label
+            className="text-white flex items-center justify-center w-24 h-12 rounded-md"
+            style={{ backgroundColor: color }}
+          >
+            {labelName}
+          </Label>
+        </div>
         <div className="image_box">
           {thumbNails.map((imgURL, id) => (
             <img src={imgURL} alt={`sample_video_thumbnail_${id}`} key={id} />
           ))}
-          <div
-            className="clip_box"
-            style={{
-              width: `calc(${rEnd - rStart}% )`,
-              left: `${rStart}%`,
-            }}
-            data-start={helpers.toTimeString(
-              (rStart / RANGE_MAX) * videoMeta.duration,
-              false
-            )}
-            data-end={helpers.toTimeString(
-              (rEnd / RANGE_MAX) * videoMeta.duration,
-              false
-            )}
-          ></div>
-          <input
-            className="range"
-            type="range"
-            min={0}
-            max={RANGE_MAX}
-            onInput={handleUpdaterStart}
-            value={rStart}
-          />
-
-          <input
-            className="range"
-            type="range"
-            min={0}
-            max={RANGE_MAX}
-            onInput={handleUpdaterEnd}
-            value={rEnd}
-          />
+          {rangesClipBox.map((rangeClipBox, idx) => {
+            return (
+              <ClipBox
+                setIdxBox={setIdxBox}
+                color={color}
+                key={rangeClipBox.id}
+                idx={rangeClipBox.id}
+                videoMeta={videoMeta}
+                handleUpdateRangeClip={handleUpdateRangeClip}
+                addRangeClipBox={addRangeClipBox}
+              ></ClipBox>
+            );
+          })}
+        </div>
+        <div className="flex-col justify-center items-center mx-8">
+          <div className="h-12 flex justify-center items-center">
+            <Button className="w-32" onClick={addRangeClipBox}>
+              Add interval
+            </Button>
+          </div>
+          <div className="h-12 flex justify-start items-start">
+            <Button className="w-32" onClick={removeClipBox}>
+              Remove
+            </Button>
+          </div>
         </div>
       </div>
     </>

@@ -1,10 +1,13 @@
 "use client";
 
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import * as helpers from "../utils/helpers";
 import VideoFilePicker from "./_components/VideoFilePicker";
 import RangeInput from "./_components/RangeInput";
+import { RangeClip, RangeLabeled } from "../../types";
+import { Button } from "@/components/ui/button";
+import { rangesLabeledDefault } from "./mock";
 
 const FF = createFFmpeg({
   // log: true,
@@ -18,15 +21,41 @@ const FF = createFFmpeg({
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
-  const [rStart, setRstart] = useState(0);
-  const [rEnd, setRend] = useState(10);
-
   const [inputVideoFile, setInputVideoFile] = useState(null);
   const [videoMeta, setVideoMeta] = useState(null);
   const [URL, setURL] = useState([]);
 
   const [thumbNails, setThumbNails] = useState([]);
-  const [thumbnailIsProcessing, setThumbnailIsProcessing] = useState(false);
+  const [thumbnailIsProcessing, setThumbnailIsProcessing] =
+    useState<boolean>(false);
+
+  const [rangesLabeled, setRangesLabeled] =
+    useState<RangeLabeled[]>(rangesLabeledDefault);
+
+  const addRangeToRangesLabeled = (newRange: RangeLabeled) => {
+    setRangesLabeled([...rangesLabeled, newRange]);
+  };
+
+  const handleRangeUpdateOnRangesLabeled = (
+    label: string,
+    newRangesLabeled: RangeClip[]
+  ) => {
+    setRangesLabeled(
+      rangesLabeled.map((rangeLabeled) => {
+        if (rangeLabeled.label === label) {
+          return { rangesClip: newRangesLabeled, label: label };
+        }
+        return rangeLabeled;
+      })
+    );
+  };
+
+  console.log(rangesLabeled);
+
+  //El id es {label}_{id}
+  const removeRangeFromRangesLabeled = (id: string) => {
+    setRangesLabeled(rangesLabeled.filter((range) => range.id !== id));
+  };
 
   const handleVideoChange = async (e) => {
     const file = e.target.files[0];
@@ -40,10 +69,11 @@ export default function Home() {
     if (!FF.isLoaded()) await FF.load();
     setThumbnailIsProcessing(true);
     const MAX_NUMBER_OF_IMAGES = 15;
-    const NUMBER_OF_IMAGES = duration < MAX_NUMBER_OF_IMAGES ? duration : 15;
+    //const NUMBER_OF_IMAGES = duration < MAX_NUMBER_OF_IMAGES ? duration : 15;
+    const NUMBER_OF_IMAGES = duration < 7 ? duration : 7;
     const offset =
       duration === MAX_NUMBER_OF_IMAGES ? 1 : duration / NUMBER_OF_IMAGES;
-
+    console.log(NUMBER_OF_IMAGES);
     const arrayOfImageURIs = [];
     FF.FS("writeFile", inputVideoFile.name, await fetchFile(inputVideoFile));
 
@@ -86,16 +116,9 @@ export default function Home() {
       videoWidth: el.videoWidth,
       videoHeight: el.videoHeight,
     };
-    console.log({ meta });
     setVideoMeta(meta);
     const thumbNails = await getThumbnails(meta);
     setThumbNails(thumbNails);
-  };
-
-  const handleUpdateRange = (func) => {
-    return ({ target: { value } }) => {
-      func(value);
-    };
   };
 
   return (
@@ -121,14 +144,48 @@ export default function Home() {
             <>
               <div className="flex justify-center items-center">
                 <RangeInput
-                  rEnd={rEnd}
-                  rStart={rStart}
-                  handleUpdaterStart={handleUpdateRange(setRstart)}
-                  handleUpdaterEnd={handleUpdateRange(setRend)}
+                  labelName={"normal"}
+                  color={"#2b6cb0"}
                   loading={thumbnailIsProcessing}
                   videoMeta={videoMeta}
                   thumbNails={thumbNails}
+                  handleRangeUpdateOnRangesLabeled={
+                    handleRangeUpdateOnRangesLabeled
+                  }
                 />
+              </div>
+              <div className="flex justify-center items-center">
+                <RangeInput
+                  labelName={"abnormal"}
+                  color={"#ea580c"}
+                  loading={thumbnailIsProcessing}
+                  videoMeta={videoMeta}
+                  thumbNails={thumbNails}
+                  addRangeToRangesLabeled={addRangeToRangesLabeled}
+                  removeRangeFromRangesLabeled={removeRangeFromRangesLabeled}
+                  handleRangeUpdateOnRangesLabeled={
+                    handleRangeUpdateOnRangesLabeled
+                  }
+                />
+              </div>
+              <div className="flex justify-center items-center">
+                <RangeInput
+                  labelName={"NA"}
+                  color={"#dc2626"}
+                  loading={thumbnailIsProcessing}
+                  videoMeta={videoMeta}
+                  thumbNails={thumbNails}
+                  addRangeToRangesLabeled={addRangeToRangesLabeled}
+                  removeRangeFromRangesLabeled={removeRangeFromRangesLabeled}
+                  handleRangeUpdateOnRangesLabeled={
+                    handleRangeUpdateOnRangesLabeled
+                  }
+                />
+              </div>
+              <div className="flex justify-end items-end">
+                <Button className="bg-green-600 hover:bg-green-800">
+                  Export results
+                </Button>
               </div>
             </>
           )}

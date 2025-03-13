@@ -1,83 +1,18 @@
-import {
-  TimelineAction,
-  TimelineEffect,
-  TimelineRow,
-} from "@xzdarcy/react-timeline-editor";
+import { RangeLabeled } from "../../types";
 
-export const scaleWidth = 50;
-export const scale = 5;
-export const startLeft = 20;
+const rangeNormal: RangeLabeled = {
+  label: "normal",
+  rangesClip: [],
+};
 
-export interface CustomTimelineAction extends TimelineAction {
-  data: {
-    src: string;
-    name: string;
-  };
-}
+const rangeAbnormal: RangeLabeled = {
+  label: "abnormal",
+  rangesClip: [],
+};
 
-export interface CusTomTimelineRow extends TimelineRow {
-  actions: CustomTimelineAction[];
-}
+const rangeNa: RangeLabeled = {
+  label: "NA",
+  rangesClip: [],
+};
 
-export const mockData: CusTomTimelineRow[] = [
-  {
-    id: "0",
-    actions: [
-      {
-        id: "action0",
-        start: 9.5,
-        end: 16,
-        effectId: "effect1",
-        data: {
-          src: "",
-          name: "Label 0",
-        },
-      },
-    ],
-  },
-  {
-    id: "1",
-    actions: [
-      {
-        id: "action1",
-        start: 5,
-        end: 9.5,
-        effectId: "effect1",
-        data: {
-          src: "",
-          name: "Label 1",
-        },
-      },
-    ],
-  },
-  {
-    id: "2",
-    actions: [
-      {
-        id: "action2",
-        start: 0,
-        end: 5,
-        effectId: "effect1",
-        data: {
-          src: "",
-          name: "Label 2",
-        },
-      },
-    ],
-  },
-  {
-    id: "3",
-    actions: [
-      {
-        id: "action3",
-        start: 0,
-        end: 20,
-        effectId: "effect0",
-        data: {
-          src: "",
-          name: "Label 3",
-        },
-      },
-    ],
-  },
-];
+export const rangesLabeledDefault = [rangeNormal, rangeAbnormal, rangeNa];
