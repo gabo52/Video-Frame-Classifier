@@ -1,5 +1,5 @@
 "use client";
-
+import axios from "axios";
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import { useState } from "react";
 import * as helpers from "../utils/helpers";
@@ -8,6 +8,9 @@ import RangeInput from "./_components/RangeInput";
 import { RangeClip, RangeLabeled } from "../../types";
 import { Button } from "@/components/ui/button";
 import { rangesLabeledDefault } from "./mock";
+import { Input } from "@/components/ui/input";
+
+const CSV_URL = "http://localhost:3000/results.csv";
 
 const FF = createFFmpeg({
   // log: true,
@@ -49,8 +52,6 @@ export default function Home() {
       })
     );
   };
-
-  console.log(rangesLabeled);
 
   //El id es {label}_{id}
   const removeRangeFromRangesLabeled = (id: string) => {
@@ -109,6 +110,7 @@ export default function Home() {
 
   const handleLoadedData = async (e) => {
     const el = e.target;
+    console.log(el);
 
     const meta = {
       name: inputVideoFile.name,
@@ -121,6 +123,18 @@ export default function Home() {
     setThumbNails(thumbNails);
   };
 
+  const downloadCSV = async () => {
+    await axios.post("http://localhost:5000/api/video/extractResults", {
+      labels: rangesLabeled,
+      videoDuration: videoMeta.duration,
+    });
+    const aTag = document.createElement("a");
+    aTag.href = CSV_URL;
+    aTag.setAttribute("download", "labels_classified.csv");
+    document.body.appendChild(aTag);
+    aTag.click();
+    aTag.remove();
+  };
   return (
     <>
       <div className="min-h-screen bg-slate-200 flex justify-center items-center font-mono">
@@ -183,7 +197,11 @@ export default function Home() {
                 />
               </div>
               <div className="flex justify-end items-end">
-                <Button className="bg-green-600 hover:bg-green-800">
+                <Input placeholder="Write the videoFPS"></Input>
+                <Button
+                  className="bg-green-600 hover:bg-green-800"
+                  onClick={downloadCSV}
+                >
                   Export results
                 </Button>
               </div>

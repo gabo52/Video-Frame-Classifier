@@ -20,3 +20,29 @@ https://www.geeksforgeeks.org/use-jsonify-instead-of-json-dumps-in-flask/
 https://www.youtube.com/watch?v=n4orudncbTs
 https://www.geeksforgeeks.org/delete-a-directory-or-file-using-python/
 https://stackoverflow.com/questions/185936/how-to-delete-the-contents-of-a-folder
+
+Fix turbopack error
+https://github.com/vercel/next.js/issues/72397
+
+Other project
+https://cloudinary.com/blog/guest_post/create-a-video-trimming-app-using-ffmpeg-wasm
+
+Error de Shared Array Buffer
+https://vercel.com/guides/fix-shared-array-buffer-not-defined-nextjs-react
+
+# tailwind
+https://tailwindcss.com/docs/color
+
+https://github.com/john-smilga/react-projects/tree/master/09-color-generator
+
+https://shuffle.dev/tailwind/classes/background-color/bg-blue-700
+
+https://stackoverflow.com/questions/40535444/how-to-use-onclick-with-divs-in-react-js
+
+# Generacion de ids con new DAte
+https://github.com/john-smilga/react-projects/blob/master/10-grocery-bud/final/src/App.js
+
+https://stackoverflow.com/questions/74607741/how-to-create-an-array-of-na-or-null-values-in-python
+
+# Index to python
+https://sparkbyexamples.com/pandas/pandas-set-index-name-to-dataframe/

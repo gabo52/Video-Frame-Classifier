@@ -1,0 +1,20 @@
+[
+  {
+    "rangesClip": [
+      {
+        "id": "1741897471965",
+        "rStart": 0,
+        "rEnd": 10
+      }
+    ],
+    "label": "normal"
+  },
+  {
+    "label": "abnormal",
+    "rangesClip": []
+  },
+  {
+    "rangesClip": [],
+    "label": "NA"
+  }
+]

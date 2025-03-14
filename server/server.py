@@ -39,13 +39,29 @@ def extract_frames():
 
 @app.route("/api/video/extractResults", methods=['POST'])
 def write_results():
-    video_path = request.json['labels']
-    
-    labels_series = pd.DataFrame({"labels_classified":video_path})
-    labels_series["labels_classified"] = labels_series["labels_classified"].fillna('Not assigned')
+    labeled_data = request.json['labels']
+    video_duration = float(request.json['videoDuration'])
+    print(video_duration)
+    print(labeled_data)
+
+    empty_series = pd.Series(index=range(int(video_duration) + 1), dtype=str)
+    pd_labels = pd.DataFrame(empty_series, columns=['label'])
+    pd_labels.index.name = 'seconds'
+
+    for rangeLabel in labeled_data:
+        label = rangeLabel['label']
+        ranges_clip = rangeLabel['rangesClip']
+        for range_clip in ranges_clip:
+            start_range = int(range_clip['rStart'])/100*video_duration
+            end_range = int(range_clip['rEnd'])/100*video_duration
+
+            start_range = int(start_range)
+            end_range = int(end_range)
+            pd_labels.iloc[start_range:end_range+1] = label
+
 
     results_path = os.path.join('..','web','public','results.csv')
-    labels_series.to_csv(results_path,index=True, header=['Label assigned'])
+    pd_labels.to_csv(results_path,index=True, header=['Label assigned'])
 
     return jsonify(True)
 

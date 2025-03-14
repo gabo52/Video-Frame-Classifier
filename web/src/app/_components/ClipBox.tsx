@@ -20,7 +20,7 @@ export default function ClipBox({
       func(value);
     };
   };
-
+  console.log(videoMeta.duration);
   useEffect(() => {
     //console.log(idx);
     setIdxBox(idx);
