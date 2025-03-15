@@ -41,8 +41,8 @@ def extract_frames():
 def write_results():
     labeled_data = request.json['labels']
     video_duration = float(request.json['videoDuration'])
-    print(video_duration)
-    print(labeled_data)
+    # print(video_duration)
+    # print(labeled_data)
 
     empty_series = pd.Series(index=range(int(video_duration) + 1), dtype=str)
     pd_labels = pd.DataFrame(empty_series, columns=['label'])

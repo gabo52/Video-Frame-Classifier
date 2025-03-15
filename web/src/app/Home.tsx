@@ -197,7 +197,6 @@ export default function Home() {
                 />
               </div>
               <div className="flex justify-end items-end">
-                <Input placeholder="Write the videoFPS"></Input>
                 <Button
                   className="bg-green-600 hover:bg-green-800"
                   onClick={downloadCSV}
