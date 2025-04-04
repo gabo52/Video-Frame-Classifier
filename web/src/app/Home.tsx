@@ -8,7 +8,6 @@ import RangeInput from "./_components/RangeInput";
 import { RangeClip, RangeLabeled } from "../../types";
 import { Button } from "@/components/ui/button";
 import { rangesLabeledDefault } from "./mock";
-import { Input } from "@/components/ui/input";
 
 const CSV_URL = "http://localhost:3000/results.csv";
 
@@ -22,7 +21,7 @@ const FF = createFFmpeg({
 })();
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const [inputVideoFile, setInputVideoFile] = useState(null);
   const [videoMeta, setVideoMeta] = useState(null);
@@ -63,7 +62,7 @@ export default function Home() {
     setInputVideoFile(file);
 
     setURL(await helpers.readFileAsBase64(file));
-    setIsLoading(true);
+    setIsLoaded(true);
   };
 
   const getThumbnails = async ({ duration }) => {
@@ -143,18 +142,18 @@ export default function Home() {
             handleChange={handleVideoChange}
             showVideo={!!inputVideoFile}
           >
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center h-96">
               <video
                 src={inputVideoFile ? URL : null}
                 autoPlay
                 controls
                 muted
                 onLoadedMetadata={handleLoadedData}
-                width="450"
+                width="700"
               ></video>
             </div>
           </VideoFilePicker>
-          {isLoading && (
+          {isLoaded && (
             <>
               <div className="flex justify-center items-center">
                 <RangeInput

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import * as helpers from "../../utils/helpers";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import ClipBox from "./ClipBox";
 import { RangeClip } from "../../../types";
+import Image from "next/image";
 
 export default function RangeInput({
   labelName,
@@ -47,10 +46,6 @@ export default function RangeInput({
     //addRangeToRangesLabeled({ range: newRange, id: `${labelName}_${idxBox}` });
   };
 
-  const updateClipIdx = (id: number) => {
-    setIdxBox(id);
-  };
-
   const removeClipBox = () => {
     setRangesClipsBox(rangesClipBox.filter((range) => range.id != idxBox));
     //removeRangeFromRangesLabeled(`${labelName}_${idxBox}`);
@@ -81,9 +76,15 @@ export default function RangeInput({
         </div>
         <div className="image_box">
           {thumbNails.map((imgURL, id) => (
-            <img src={imgURL} alt={`sample_video_thumbnail_${id}`} key={id} />
+            <Image
+              src={imgURL}
+              alt={`sample_video_thumbnail_${id}`}
+              key={id}
+              width={100}
+              height={80}
+            />
           ))}
-          {rangesClipBox.map((rangeClipBox, idx) => {
+          {rangesClipBox.map((rangeClipBox) => {
             return (
               <ClipBox
                 setIdxBox={setIdxBox}

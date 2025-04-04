@@ -3,13 +3,10 @@ import * as helpers from "../../utils/helpers";
 import React, { useEffect, useState } from "react";
 export default function ClipBox({
   videoMeta,
-  handleUpdaterStart,
-  handleUpdaterEnd,
   color,
   setIdxBox,
   idx,
   handleUpdateRangeClip,
-  addRangeClipBox,
 }) {
   const RANGE_MAX = 100;
   const [start, setStart] = useState<number>(0);
