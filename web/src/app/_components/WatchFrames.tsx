@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useOnKeyPress } from "../hooks/useOnKeyPress";
 
+const FRAMES_STEP = 3;
+
 function WatchFrames({
   idx,
   handleCountChange,
@@ -15,8 +17,8 @@ function WatchFrames({
   assignLabel: (label: string) => void;
   downloadCSV: () => void;
 }) {
-  useOnKeyPress(() => handleCountChange(idx + 3), "ArrowRight");
-  useOnKeyPress(() => handleCountChange(idx - 3), "ArrowLeft");
+  useOnKeyPress(() => handleCountChange(idx + 1), "ArrowRight");
+  useOnKeyPress(() => handleCountChange(idx - 1), "ArrowLeft");
 
   useOnKeyPress(() => assignLabel("normal"), "n");
   useOnKeyPress(() => assignLabel("abnormal"), "a");
@@ -28,7 +30,7 @@ function WatchFrames({
           className="h
         -12 flex justify-center items-center font-bold text-xl "
         >
-          <h1>Frame number {idx}</h1>{" "}
+          <h1>Frame number {idx * FRAMES_STEP}</h1>{" "}
         </div>
         <div className="flex justify-center items-center">
           <Button
@@ -39,7 +41,7 @@ function WatchFrames({
             <ChevronLeft />
           </Button>
           <Image
-            src={`/tmp_frames/frame_${idx}.png`}
+            src={`/tmp_frames/frame_${idx * FRAMES_STEP}.png`}
             width={500}
             height={500}
             alt="image"
