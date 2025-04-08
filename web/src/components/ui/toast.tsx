@@ -36,6 +36,7 @@ const toastVariants = cva(
           "border bg-blue-600 text-foreground text-white capitalize",
         abnormal_label:
           "border bg-orange-600 text-foreground text-white capitalize",
+        ignore_label: "border bg-black text-foreground text-white capitalize",
       },
     },
     defaultVariants: {
