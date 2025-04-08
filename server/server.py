@@ -28,6 +28,7 @@ def extract_frames():
     print(f"Fps: {fps}")
 
     idx = 0
+    saved_images_count = 0 
 
     while cap.isOpened():
         ret, frame = cap.read()
@@ -36,20 +37,22 @@ def extract_frames():
         output_path = os.path.join(tmp_path,f"frame_{idx}.png")
         if idx % 3==0:
             cv2.imwrite(output_path, frame)
+            saved_images_count +=1
         idx = idx +1
     frame_count = cap.get(cv2.CAP_PROP_FRAME_COUNT)
     print(f"Frame count {frame_count}")
-    return jsonify(frame_count)
+    return jsonify(saved_images_count)
 
 @app.route("/api/video/extractResults", methods=['POST'])
 def write_results():
     video_path = request.json['labels']
+    frames_index = request.json['frames_idx']
     
-    labels_series = pd.DataFrame({"labels_classified":video_path})
+    labels_series = pd.DataFrame({"frames_idx":frames_index,"labels_classified":video_path})
     labels_series["labels_classified"] = labels_series["labels_classified"].fillna('Not assigned')
 
     results_path = os.path.join('..','web','public','results.csv')
-    labels_series.to_csv(results_path,index=True, header=['Label assigned'])
+    labels_series.to_csv(results_path,index=False, header=['Frames_index','Label assigned'])
 
     return jsonify(True)
 

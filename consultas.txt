@@ -20,3 +20,8 @@ https://www.geeksforgeeks.org/use-jsonify-instead-of-json-dumps-in-flask/
 https://www.youtube.com/watch?v=n4orudncbTs
 https://www.geeksforgeeks.org/delete-a-directory-or-file-using-python/
 https://stackoverflow.com/questions/185936/how-to-delete-the-contents-of-a-folder
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc
+
+https://stackoverflow.com/questions/55579499/efficient-way-to-create-and-fill-an-array-with-consecutive-numbers-in-range
+https://stackoverflow.com/questions/23096260/is-there-a-typescript-list-and-or-map-class-library
