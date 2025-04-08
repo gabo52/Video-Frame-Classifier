@@ -15,11 +15,12 @@ function WatchFrames({
   assignLabel: (label: string) => void;
   downloadCSV: () => void;
 }) {
-  useOnKeyPress(() => handleCountChange(idx + 1), "ArrowRight");
-  useOnKeyPress(() => handleCountChange(idx - 1), "ArrowLeft");
+  useOnKeyPress(() => handleCountChange(idx + 3), "ArrowRight");
+  useOnKeyPress(() => handleCountChange(idx - 3), "ArrowLeft");
 
   useOnKeyPress(() => assignLabel("normal"), "n");
   useOnKeyPress(() => assignLabel("abnormal"), "a");
+  useOnKeyPress(() => assignLabel("ignore"), "i");
   return (
     <>
       <div>
@@ -65,6 +66,12 @@ function WatchFrames({
             onClick={() => assignLabel("abnormal")}
           >
             Abnormal
+          </Button>
+          <Button
+            className="mx-6 shadow-xl"
+            onClick={() => assignLabel("Discard")}
+          >
+            Ignore
           </Button>
         </div>
 

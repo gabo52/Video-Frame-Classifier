@@ -18,7 +18,7 @@ export default function Home() {
   const { toast } = useToast();
 
   const handleCountChange = (newValue: number) => {
-    if (newValue !== maxLength && newValue >= 0) {
+    if (newValue < maxLength && newValue >= 0) {
       setIdx(newValue);
     }
   };

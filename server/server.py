@@ -24,6 +24,9 @@ def extract_frames():
     shutil.rmtree(tmp_path, ignore_errors=True)
     os.makedirs(tmp_path, exist_ok=True)
 
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    print(f"Fps: {fps}")
+
     idx = 0
 
     while cap.isOpened():
@@ -31,10 +34,11 @@ def extract_frames():
         if not ret:
             break
         output_path = os.path.join(tmp_path,f"frame_{idx}.png")
-        cv2.imwrite(output_path, frame)
+        if idx % 3==0:
+            cv2.imwrite(output_path, frame)
         idx = idx +1
     frame_count = cap.get(cv2.CAP_PROP_FRAME_COUNT)
-
+    print(f"Frame count {frame_count}")
     return jsonify(frame_count)
 
 @app.route("/api/video/extractResults", methods=['POST'])
