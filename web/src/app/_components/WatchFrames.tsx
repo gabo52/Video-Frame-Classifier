@@ -11,11 +11,13 @@ function WatchFrames({
   handleCountChange,
   assignLabel,
   downloadCSV,
+  filename,
 }: {
   idx: number;
   handleCountChange: (idx: number) => void;
   assignLabel: (label: string) => void;
   downloadCSV: () => void;
+  filename: string;
 }) {
   useOnKeyPress(() => handleCountChange(idx + 1), "ArrowRight");
   useOnKeyPress(() => handleCountChange(idx - 1), "ArrowLeft");
@@ -26,11 +28,15 @@ function WatchFrames({
   return (
     <>
       <div>
-        <div
-          className="h
-        -12 flex justify-center items-center font-bold text-xl "
-        >
-          <h1>Frame number {idx * FRAMES_STEP}</h1>{" "}
+        <div className="h-16 flex justify-center items-center font-bold text-xl ">
+          <div className="flex justify-center items-center text-center">
+            <h1 className="flex justify-center items-center">
+              {filename}
+              <br />
+              Frame number {idx * FRAMES_STEP}
+            </h1>
+            <br />
+          </div>
         </div>
         <div className="flex justify-center items-center">
           <Button
@@ -40,13 +46,13 @@ function WatchFrames({
           >
             <ChevronLeft />
           </Button>
-          <Image
+          <img
             src={`/tmp_frames/frame_${idx * FRAMES_STEP}.png`}
-            width={500}
-            height={500}
+            width={900}
+            height={900}
             alt="image"
             className="rounded-md"
-          ></Image>
+          ></img>
 
           <Button
             size="icon"

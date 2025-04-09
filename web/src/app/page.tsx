@@ -18,6 +18,7 @@ export default function Home() {
   const [maxLength, setMaxLength] = useState(0);
   const [labels, setLabels] = useState<Array<string>>([]);
   const [framesIdx, setFramesIdx] = useState<Array<number>>([]);
+  const [filename, setFilename] = useState<string>();
   const { toast } = useToast();
 
   const handleCountChange = (newValue: number) => {
@@ -44,6 +45,9 @@ export default function Home() {
     const response = await axios.post("http://localhost:5000/api/video", {
       video_path: videoPath,
     });
+
+    const path_parts = videoPath.split("/");
+    setFilename(path_parts[path_parts.length - 1]);
 
     if (response.data === 0) {
       toast({
@@ -110,6 +114,7 @@ export default function Home() {
             handleCountChange={handleCountChange}
             assignLabel={assignLabel}
             downloadCSV={downloadCSV}
+            filename={filename}
           ></WatchFrames>
         ) : (
           <div className="w-[70vw] m-[5rem 0] bg-blue-300 max-w-[1170px] rounded-sm p-[1.5rem 2rem] border-red-500 shadow-xl">
